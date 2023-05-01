@@ -44,7 +44,7 @@ class LoginFormView extends StatelessWidget {
                   const Divider(),
                   30.sh,
                   authOptionsButton(
-                      theme, authOptions), //create an account button
+                      theme, authOptions,size), //create an account button
                 ],
               ),
           ),
@@ -95,7 +95,7 @@ mainButton(ThemeData theme) => AppButton(
             ?.copyWith(color: AppColors.black, fontWeight: FontWeight.w500),
       ),
     );
-authOptionsButton(ThemeData theme, List<AuthOptions> authOptionsList) =>
+authOptionsButton(ThemeData theme, List<AuthOptions> authOptionsList,Size size) =>
     Expanded(
       child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -112,12 +112,15 @@ authOptionsButton(ThemeData theme, List<AuthOptions> authOptionsList) =>
                     children: [
                       Icon(authOptionsList[index].icon, color: AppColors.black),
                       10.sw,
-                      Text(
-                        authOptionsList[index].title,
-                        textAlign: TextAlign.left,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w500),
+                      SizedBox(
+                        width: size.width*0.5,
+                        child: Text(
+                          authOptionsList[index].title,
+                          textAlign: TextAlign.left,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                              color: AppColors.black,
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
                     ],
                   ),

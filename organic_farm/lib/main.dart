@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organic_farm/services/routes/routes.dart';
+
+import 'features/authentication/bloc/bloc.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
@@ -12,14 +14,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // return MultiBlocProvider(
-    //   providers: [
-    //     BlocProvider<BlocA>(
-    //       create: (BuildContext context) => BlocA(),
-    //     ),
-    //   ],
-    //   child:
-       return MaterialApp.router(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthenticationBloc>(
+          create: (BuildContext context) => AuthenticationBloc(AuthenticationState.empty()),
+        ),
+      ],
+      child:
+      MaterialApp.router(
         routerConfig: routes,
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
 
-      // )
+      )
     );
   }
 }
