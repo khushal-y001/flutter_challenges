@@ -11,6 +11,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.grey50,
       body: SafeArea(
         child: Center(

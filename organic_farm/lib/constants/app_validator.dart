@@ -3,7 +3,7 @@ class AppValidators {
     r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
   );
   static final RegExp _passwordRegExp = RegExp(
-    r'^.{4,10}$',
+    r'^.{8,12}$',
   );
   static isValidEmail(String email) {
     return _emailRegExp.hasMatch(email);

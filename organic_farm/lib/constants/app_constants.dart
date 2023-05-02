@@ -6,6 +6,8 @@ class AppConstants
   static const later = "Later";
   static const emailAddress = "Email Address";
   static const password = "Password";
+  static const emailErrorText = "Email is invalid";
+  static const passwordErrorText = "Password should be 8-12 characters long";
   static const alreadyHaveAnAccount = "Already have an account?";
   static const continueWith = "Continue with";
   static const google = "Google";

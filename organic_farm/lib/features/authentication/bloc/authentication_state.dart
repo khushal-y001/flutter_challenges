@@ -24,8 +24,8 @@ class AuthenticationState extends Equatable {
 
   factory AuthenticationState.empty() {
     return const AuthenticationState(
-      isEmailValid: true,
-      isPasswordValid: true,
+      isEmailValid: false,
+      isPasswordValid: false,
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
@@ -40,7 +40,7 @@ class AuthenticationState extends Equatable {
         isSubmitting: true,
         isSuccess: false,
         isFailure: false,
-        message: "Logging ...");
+        message: "");
   }
 
   factory AuthenticationState.failure(String message) {
@@ -61,12 +61,12 @@ class AuthenticationState extends Equatable {
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
-      message: "Login Sucess",
+      message: "",
     );
   }
 
   AuthenticationState update({bool? isEmailValid, bool? isPasswordValid}) {
-    return cloneWith(
+    return copyWith(
       isEmailValid: isEmailValid,
       isPasswordValid: isPasswordValid,
       isSubmitting: false,
@@ -76,7 +76,7 @@ class AuthenticationState extends Equatable {
     );
   }
 
-  AuthenticationState cloneWith({
+  AuthenticationState copyWith({
     bool? isEmailValid,
     bool? isPasswordValid,
     bool? isSubmitting,
@@ -93,13 +93,10 @@ class AuthenticationState extends Equatable {
       message: message ?? this.message,
     );
   }
-
   @override
   String toString() {
     return 'LoginState{isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isSuccess: $isSuccess, isFailure: $isFailure, message: $message}';
   }
-
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [isEmailValid,isPasswordValid,isSubmitting,isSuccess,isFailure,message];
 }
