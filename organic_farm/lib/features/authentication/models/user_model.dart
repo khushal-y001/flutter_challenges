@@ -1,23 +1,26 @@
-import 'package:equatable/equatable.dart';
+// user_model.dart
+// 1. import freezed_annotation
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class UserModel extends Equatable
-{
-  final String? id;
-  final String? name;
-  final String? email;
-  final String? avatar;
-  final String? phoneNumber;
+// 2. add 'part' files
+part 'user_model.freezed.dart';
+part 'user_model.g.dart';
 
-  const UserModel({this.id, this.name, this.email, this.avatar, this.phoneNumber});
+// 3. add @freezed annotation
+@freezed
+// 4. define a class with a mixin
+class UserModel  with _$UserModel {
+  // 5. define a factory constructor
+  factory UserModel({
+    // 6. list all the arguments/properties
+    String? id,
+    String? name,
+    String? email,
+    String? avatar,
+    String? phoneNumber,
+    // 7. assign it with the `_UserModel` class constructor
+  }) = _UserModel;
 
-  @override
-
-  List<Object?> get props => [id,name,email,avatar,phoneNumber];
-
-  @override
-  String toString() {
-    return 'UserData{name: $name}';
-  }
-
-
+  // 8. define another factory constructor to parse from json
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 }
