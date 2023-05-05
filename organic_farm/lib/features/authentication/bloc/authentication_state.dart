@@ -43,14 +43,14 @@ class AuthenticationState extends Equatable {
         message: "");
   }
 
-  factory AuthenticationState.failure(String message) {
-    return  AuthenticationState(
+  factory AuthenticationState.failure() {
+    return const AuthenticationState(
       isEmailValid: true,
       isPasswordValid: true,
       isSuccess: false,
       isSubmitting: false,
       isFailure: true,
-      message: message,
+      message: "",
     );
   }
 

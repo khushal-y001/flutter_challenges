@@ -38,26 +38,39 @@ class _LoginFormViewState extends State<LoginFormView> {
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              topIcons(theme, context),
-              30.sh,
-              loginTitle(theme),
-              40.sh,
-              emailForm(theme, context, emailController),
-              15.sh,
-              passwordForm(theme, context, passwordController),
-              25.sh,
-              mainButton(theme, emailController.text, passwordController.text),
-              30.sh,
-              haveAnAccountButton(theme),
-              30.sh,
-              const Divider(),
-              30.sh,
-              authOptionsButton(
-                  theme, authOptions, size), //create an account button
-            ],
+          child:  BlocBuilder<AuthenticationBloc, AuthenticationState>(
+              builder: (context, state) {
+                if(state == AuthenticationState.success())
+                {
+
+
+                }
+                if(state == AuthenticationState.failure())
+                {
+
+                }
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  topIcons(theme, context),
+                  30.sh,
+                  loginTitle(theme),
+                  40.sh,
+                  emailForm(theme, context, emailController),
+                  15.sh,
+                  passwordForm(theme, context, passwordController),
+                  25.sh,
+                  mainButton(theme, emailController.text, passwordController.text),
+                  30.sh,
+                  haveAnAccountButton(theme),
+                  30.sh,
+                  const Divider(),
+                  30.sh,
+                  authOptionsButton(
+                      theme, authOptions, size), //create an account button
+                ],
+              );
+            }
           ),
         ),
       ),
@@ -105,7 +118,7 @@ emailForm(ThemeData theme, BuildContext context,
             hintText: AppConstants.emailAddress,
             onChanged: (email) => context
                 .read<AuthenticationBloc>()
-                .add(ChangeEmailEvent(email: email)),
+                .add(OnChangeEmailEvent(email: email)),
           ),
           5.sh,
           !state.isEmailValid
@@ -129,7 +142,7 @@ passwordForm(ThemeData theme, BuildContext context,
             hintText: AppConstants.password,
             onChanged: (password) => context
                 .read<AuthenticationBloc>()
-                .add(ChangePasswordEvent(password: password)),
+                .add(OnChangePasswordEvent(password: password)),
           ),
           5.sh,
           !state.isPasswordValid
@@ -164,9 +177,10 @@ mainButton(ThemeData theme, String? email, String? password) =>
       return Visibility(
         visible: !(state == AuthenticationState.logging()),
         replacement: const AppButton(
-          onPressed: null,
-          child:  CircularProgressIndicator(color: AppColors.black,)
-        ),
+            onPressed: null,
+            child: CircularProgressIndicator(
+              color: AppColors.black,
+            )),
         child: AppButton(
           onPressed: () {
             if (!state.isFormValid) {
@@ -195,39 +209,38 @@ authOptionsButton(
           itemBuilder: (context, index) {
             return BlocBuilder<AuthenticationBloc, AuthenticationState>(
                 builder: (context, state) {
-                return Column(
-                  children: [
-                    10.sh,
-                    AppButton(
-                      backgroundColor: AppColors.white,
-                      onPressed: () {
-                        if(index==0)
-                        {
-                          context.read<AuthenticationBloc>().add(GoogleAuth());
-                        }
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(authOptionsList[index].icon, color: AppColors.black),
-                          10.sw,
-                          SizedBox(
-                            width: size.width * 0.5,
-                            child: Text(
-                              authOptionsList[index].title,
-                              textAlign: TextAlign.left,
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.w500),
-                            ),
+              return Column(
+                children: [
+                  10.sh,
+                  AppButton(
+                    backgroundColor: AppColors.white,
+                    onPressed: () {
+                      if (index == 0) {
+                        context.read<AuthenticationBloc>().add(GoogleAuth());
+                      }
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(authOptionsList[index].icon,
+                            color: AppColors.black),
+                        10.sw,
+                        SizedBox(
+                          width: size.width * 0.5,
+                          child: Text(
+                            authOptionsList[index].title,
+                            textAlign: TextAlign.left,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w500),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                );
-              }
-            );
+                  ),
+                ],
+              );
+            });
           }),
     );
 
