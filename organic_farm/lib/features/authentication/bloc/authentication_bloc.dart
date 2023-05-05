@@ -10,21 +10,21 @@ import '../internal_services/services/supabase/supabase_auth_service.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc(super.empty) {
-    on<ChangeEmailEvent>(_onEmailChanged);
-    on<ChangePasswordEvent>(_onPasswordChanged);
+    on<OnChangeEmailEvent>(_onEmailChanged);
+    on<OnChangePasswordEvent>(_onPasswordChanged);
     on<SignupEvent>(_signUp);
     on<GoogleAuth>(_googleSignIn);
 
   }
   _onEmailChanged(
-    ChangeEmailEvent event,
+      OnChangeEmailEvent event,
     Emitter<AuthenticationState> emit,
   ) {
     emit(state.copyWith(isEmailValid: AppValidators.isValidEmail(event.email)));
   }
 
   _onPasswordChanged(
-    ChangePasswordEvent event,
+      OnChangePasswordEvent event,
     Emitter<AuthenticationState> emit,
   ) {
     emit(state.copyWith(
@@ -35,13 +35,12 @@ class AuthenticationBloc
     SignupEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
-    final dataImplementation = DataImplementation();
     emit(state.copyWith(isSubmitting: true));
-    await Future.delayed(const Duration(seconds: 5));
-    final userModel = await dataImplementation.createAnAccount(
-        email: event.email, password: event.password);
+    final signUp = await SupabaseAuthService().supabaseAuthService(Supabase.instance);
+    final authResponse = await signUp.signUpWithEmailAndPassword(email:event.email,password: event.password);
+    print("User Session refreshToken ${authResponse.session!.refreshToken}");
+    print("User data ${authResponse.user!.email}");
     emit(state.copyWith(isSuccess: true));
-    print(userModel.toString());
   }
 
 
@@ -51,8 +50,6 @@ class AuthenticationBloc
   ) async {
     final signInWithGitHub = await  SupabaseAuthService().supabaseAuthService(Supabase.instance);
     signInWithGitHub.signInWithGitHub();
-    await Future.delayed(const Duration(seconds: 5));
-
     // final userModel = await googleService.googleSignInService();
     // print(userModel.toString());
   }

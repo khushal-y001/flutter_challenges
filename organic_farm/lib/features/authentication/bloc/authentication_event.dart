@@ -23,27 +23,27 @@ class GoogleAuth extends AuthenticationEvent {}
 class FaceBookAuth extends AuthenticationEvent {}
 class AppleAuth extends AuthenticationEvent {}
 class LogoutEvent extends AuthenticationEvent {}
-class ChangeEmailEvent extends AuthenticationEvent {
+class OnChangeEmailEvent extends AuthenticationEvent {
   final String email;
 
- const ChangeEmailEvent({required this.email});
+ const OnChangeEmailEvent({required this.email});
   @override
   List<Object> get props => [email];
 
   @override
   String toString() {
-    return 'EmailChanged{email: $email}';
+    return 'OnEmailChanged{email: $email}';
   }
 }
-class ChangePasswordEvent extends AuthenticationEvent {
+class OnChangePasswordEvent extends AuthenticationEvent {
   final String password;
 
-  const ChangePasswordEvent({required this.password});
+  const OnChangePasswordEvent({required this.password});
   @override
   List<Object> get props => [password];
 
   @override
   String toString() {
-    return 'PasswordChanged{password: $password}';
+    return 'OnPasswordChanged{password: $password}';
   }
 }
