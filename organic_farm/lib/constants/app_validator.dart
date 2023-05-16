@@ -8,13 +8,15 @@ class AppValidators {
   static isValidEmail(String email) {
     return _emailRegExp.hasMatch(email);
   }
+
   static isValidPassword(String password) {
     return _passwordRegExp.hasMatch(password);
   }
+
   static isValidName(String name) {
     return name.isNotEmpty;
   }
-  ///Singleton factory
+
   static final AppValidators _instance = AppValidators._internal();
 
   factory AppValidators() {

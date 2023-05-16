@@ -1,8 +1,16 @@
 import 'package:equatable/equatable.dart';
 
-import 'package:flutter/material.dart';
+// // @CopyWith(copyWithNull: true)
+// abstract class AuthenticationBlocState extends Equatable {
+//   const AuthenticationBlocState({this.isLoading = false});
 
-@immutable
+//   final bool isLoading;
+
+//   @override
+//   List<Object?> get props => [isLoading];
+// }
+// class
+
 class AuthenticationState extends Equatable {
   final bool isEmailValid;
   final bool isPasswordValid;
@@ -93,10 +101,13 @@ class AuthenticationState extends Equatable {
       message: message ?? this.message,
     );
   }
+
   @override
   String toString() {
     return 'LoginState{isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isSuccess: $isSuccess, isFailure: $isFailure, message: $message}';
   }
+
   @override
-  List<Object?> get props => [isEmailValid,isPasswordValid,isSubmitting,isSuccess,isFailure,message];
+  List<Object?> get props =>
+      [isEmailValid, isPasswordValid, isSubmitting, isSuccess, isFailure, message];
 }

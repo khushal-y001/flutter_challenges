@@ -9,7 +9,7 @@ part 'user_model.g.dart';
 // 3. add @freezed annotation
 @freezed
 // 4. define a class with a mixin
-class UserModel  with _$UserModel {
+class UserModel with _$UserModel {
   // 5. define a factory constructor
   factory UserModel({
     // 6. list all the arguments/properties
