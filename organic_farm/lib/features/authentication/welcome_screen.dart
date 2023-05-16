@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:organic_farm/constants/constants.dart';
 import 'package:organic_farm/features/authentication/views/login_form_view.dart';
+import 'package:organic_farm/widgets/widgets.dart';
 
-import '../../constants/constants.dart';
-import '../../widgets/widgets.dart';
-
+@immutable
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -45,8 +45,7 @@ welcomeImage() => Image.asset(AppImages.welcomeImage);
 welcomePageTitle(ThemeData theme) => Text(
       AppConstants.welcomePageTitle,
       textAlign: TextAlign.center,
-      style:
-          theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+      style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
     );
 
 welcomePageSubTitle(ThemeData theme) => Text(
@@ -59,8 +58,7 @@ welcomePageSubTitle(ThemeData theme) => Text(
 
 mainButton(ThemeData theme, BuildContext context) => AppButton(
       onPressed: () {
-        OverLayHelper.modalBottomSheet(context,
-            builder: (context) => const LoginFormView());
+        OverLayHelper.modalBottomSheet(context, builder: (context) => const LoginFormView());
       },
       child: Text(
         AppConstants.getStarted,

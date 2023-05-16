@@ -1,6 +1,4 @@
-
-class AppConstants
-{
+class AppConstants {
   static const appName = "Organic";
   static const createAccount = "Create an Account";
   static const later = "Later";
@@ -14,7 +12,8 @@ class AppConstants
   static const facebook = "Facebook";
   static const apple = "Apple";
   static const welcomePageTitle = "Hey! Welcome";
-  static const welcomePageParagraph = "We deliver on-demand organic fresh fruits directly from your nearby farms.";
+  static const welcomePageParagraph =
+      "We deliver on-demand organic fresh fruits directly from your nearby farms.";
   static const getStarted = "Get Started";
   static const alreadyHaveAnAccountSmallCase = "I already have an account";
 }
