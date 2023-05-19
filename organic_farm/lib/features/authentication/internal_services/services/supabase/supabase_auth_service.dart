@@ -1,16 +1,19 @@
 import 'package:organic_farm/features/authentication/internal_services/repository/supabase_repository/supabase_authentication_repository.dart';
-import 'package:organic_farm/features/authentication/internal_services/services/authentication_base_services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SupabaseAuthService implements BaseServices {
-  @override
-  Future<void> awsAuthService() async {}
+class SupabaseAuthService {
+  static SupabaseAuthService init(
+      {required SupabaseAuthenticationRepository supabaseAuthenticationRepository}) {
+    return SupabaseAuthService._(supabaseAuthenticationRepository);
+  }
 
-  @override
-  Future<void> firebaseAuthService() async {}
+  SupabaseAuthService._(this.supabaseAuthenticationRepository);
 
-  @override
-  Future<SupabaseAuthenticationRepository> supabaseAuthService(Supabase supabase) async {
-    return SupabaseAuthenticationRepository(supabase);
+  final SupabaseAuthenticationRepository supabaseAuthenticationRepository;
+
+  Future<AuthResponse> authenticationWithSupabase(
+      {required String email, required String password}) async {
+    return await supabaseAuthenticationRepository.signInWithEmailAndPassword(
+        email: email, password: password);
   }
 }

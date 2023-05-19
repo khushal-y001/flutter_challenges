@@ -18,7 +18,7 @@ class _LoginFormViewState extends State<LoginFormView> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final authOptions = <AuthOptions>[
-    AuthOptions(icon: Icons.email, title: "${AppConstants.continueWith} ${AppConstants.google}"),
+    AuthOptions(icon: Icons.email, title: "${AppConstants.continueWith} ${AppConstants.github}"),
     AuthOptions(
         icon: Icons.facebook, title: "${AppConstants.continueWith} ${AppConstants.facebook}"),
     AuthOptions(icon: Icons.apple, title: "${AppConstants.continueWith} ${AppConstants.apple}"),
@@ -34,8 +34,12 @@ class _LoginFormViewState extends State<LoginFormView> {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: BlocBuilder<AuthenticationBloc, AuthenticationState>(builder: (context, state) {
-            if (state == AuthenticationState.success()) {}
-            if (state == AuthenticationState.failure()) {}
+            if (state == AuthenticationState.success()) {
+              ScaffoldMessenger.of(context).showSnackBar(snackBar("Login successfully"));
+            }
+            if (state == AuthenticationState.failure()) {
+              ScaffoldMessenger.of(context).showSnackBar(snackBar("Login Failed"));
+            }
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -189,7 +193,7 @@ authOptionsButton(ThemeData theme, List<AuthOptions> authOptionsList, Size size)
                     backgroundColor: AppColors.white,
                     onPressed: () {
                       if (index == 0) {
-                        context.read<AuthenticationBloc>().add(GoogleAuth());
+                        context.read<AuthenticationBloc>().add(GithubAuth());
                       }
                     },
                     child: Row(

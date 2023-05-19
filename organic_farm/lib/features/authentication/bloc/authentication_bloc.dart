@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:organic_farm/constants/app_validator.dart';
 import 'package:organic_farm/features/authentication/bloc/bloc.dart';
-import 'package:organic_farm/features/authentication/internal_services/services/supabase/supabase_auth_service.dart';
+import 'package:organic_farm/features/authentication/internal_services/repository/supabase_repository/supabase_authentication_repository.dart';
+import 'package:organic_farm/features/authentication/repository/auth_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -11,6 +12,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     on<SignupEvent>(_signUp);
     on<GithubAuth>(_signInWithGithub);
   }
+  final SupabaseAuthenticationRepository supabaseAuthenticationRepository =
+      SupabaseAuthenticationRepository(Supabase.instance);
+
+  AuthRepository get authRepository =>
+      AuthRepository.init(supabaseAuthenticationRepository: supabaseAuthenticationRepository);
+
   _onEmailChanged(
     OnChangeEmailEvent event,
     Emitter<AuthenticationState> emit,
@@ -31,9 +38,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   ) async {
     try {
       emit(state.copyWith(isSubmitting: true));
-      final signUp = await SupabaseAuthService().supabaseAuthService(Supabase.instance);
-      final authResponse =
-          await signUp.signUpWithEmailAndPassword(email: event.email, password: event.password);
+      final authResponse = await authRepository.supabaseSignUpWithEmailAndPassword(
+          email: event.email, password: event.password);
       if (authResponse.session == null) {
         emit(state.copyWith(isSubmitting: false));
       } else {
@@ -48,7 +54,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     GithubAuth event,
     Emitter<AuthenticationState> emit,
   ) async {
-    final signInWithGitHub = await SupabaseAuthService().supabaseAuthService(Supabase.instance);
-    signInWithGitHub.signInWithGitHub();
+    final authResponse = await authRepository.supabaseSignInWithGitHub();
   }
 }
