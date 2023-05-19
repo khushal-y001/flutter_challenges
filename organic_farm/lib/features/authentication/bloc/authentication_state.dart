@@ -1,16 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-// // @CopyWith(copyWithNull: true)
-// abstract class AuthenticationBlocState extends Equatable {
-//   const AuthenticationBlocState({this.isLoading = false});
-
-//   final bool isLoading;
-
-//   @override
-//   List<Object?> get props => [isLoading];
-// }
-// class
-
 class AuthenticationState extends Equatable {
   final bool isEmailValid;
   final bool isPasswordValid;

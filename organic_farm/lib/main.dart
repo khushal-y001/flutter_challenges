@@ -19,7 +19,3 @@ void main() async {
       tools: const [...DevicePreview.defaultTools],
       builder: (context) => const MyApp()));
 }
-
-/// Good morning
-/// I am working on a ticket and I got the issue but still trying to find the cause of that issue.
-

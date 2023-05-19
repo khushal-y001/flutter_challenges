@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-SnackBar snackBar() => SnackBar(
-      content: const Text('Yay! A SnackBar!'),
+SnackBar snackBar(String message, {String? label, VoidCallback? onPressed}) => SnackBar(
+      content: Text(message),
       action: SnackBarAction(
-        label: 'Undo',
-        onPressed: () {
-          // Some code to undo the change.
-        },
+        label: label ?? '',
+        onPressed: onPressed ?? () {},
       ),
     );

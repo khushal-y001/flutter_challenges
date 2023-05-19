@@ -9,6 +9,7 @@ class AppConstants {
   static const alreadyHaveAnAccount = "Already have an account?";
   static const continueWith = "Continue with";
   static const google = "Google";
+  static const github = "Github";
   static const facebook = "Facebook";
   static const apple = "Apple";
   static const welcomePageTitle = "Hey! Welcome";
